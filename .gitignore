@@ -18,6 +18,7 @@ backend/**/*.pyc
 frontend/.env.local
 backend/.env
 frontend/tsconfig.tsbuildinfo
+docs/
 .docs/
 
 # Secrets/certs
