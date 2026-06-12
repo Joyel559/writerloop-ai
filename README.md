@@ -37,7 +37,7 @@ Type with real-time AI intervention. Watch as Gemini automatically highlights st
   <tr>
     <td width="50%" align="center" style="border: none;">
       <h4>Mistake Detected</h4>
-      <img src="assets/writermis.png" width="96%" alt="Mistake" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
+      <img src="assets/writemis.png" width="96%" alt="Mistake" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
     </td>
     <td width="50%" align="center" style="border: none;">
       <h4>AI Corrected</h4>
