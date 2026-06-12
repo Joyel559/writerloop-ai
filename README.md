@@ -1,4 +1,4 @@
-# 🌀 WriterLoop AI
+# WriterLoop AI
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Next.js](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
@@ -10,63 +10,63 @@ WriterLoop AI is an intelligent reading and writing workspace powered by Google 
 
 ---
 
-## 📸 Visual Showcase
+## Visual Showcase
 
-### 🏠 Workspace Homepage
+### Workspace Homepage
 The central hub to setup your API keys, navigate to the apps, and check current system statuses.
 
 <p align="center">
-  <img src="home.png" width="100%" alt="WriterLoop AI Homepage" style="border-radius: 12px; box-shadow: 0 4px 30px rgba(0,0,0,0.15);" />
+  <img src="assets/home.png" width="100%" alt="WriterLoop AI Homepage" style="border-radius: 12px; box-shadow: 0 4px 30px rgba(0,0,0,0.15);" />
 </p>
 
 ---
 
-### 📖 Reader Workspace (`/reader`)
+### Reader Workspace (/reader)
 Render your files (PDF, EPUB, DOCX, TXT, MD) in a clean, visual layout. Highlight text, query AI on-demand, translate sections, and perform deep semantic vector search on your document library.
 
 <p align="center">
-  <img src="read.png" width="100%" alt="Reader App Interface" style="border-radius: 12px; box-shadow: 0 4px 30px rgba(0,0,0,0.15);" />
+  <img src="assets/read.png" width="100%" alt="Reader App Interface" style="border-radius: 12px; box-shadow: 0 4px 30px rgba(0,0,0,0.15);" />
 </p>
 
 ---
 
-### ✍️ Live AI Editor Correction (`/editor`)
+### Live AI Editor Correction (/editor)
 Type with real-time AI intervention. Watch as Gemini automatically highlights structural and spelling mistakes, and refines them instantly.
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="50%" align="center" style="border: none;">
-      <h4>❌ Mistake Detected</h4>
-      <img src="writermis.png" width="96%" alt="Mistake" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
+      <h4>Mistake Detected</h4>
+      <img src="assets/writermis.png" width="96%" alt="Mistake" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
     </td>
     <td width="50%" align="center" style="border: none;">
-      <h4>✅ AI Corrected</h4>
-      <img src="writer.png" width="96%" alt="Corrected" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
+      <h4>AI Corrected</h4>
+      <img src="assets/writer.png" width="96%" alt="Corrected" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
     </td>
   </tr>
 </table>
 
 ---
 
-### 🦆 Document Generation Examples
+### Document Generation Examples
 Transform brief outlines and raw text into expanded, rich, and formatted long-form articles.
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="50%" align="center" style="border: none;">
       <h4>Original Text / Outline</h4>
-      <img src="duck.png" width="96%" alt="Duck Example" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
+      <img src="assets/duck.png" width="96%" alt="Duck Example" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
     </td>
     <td width="50%" align="center" style="border: none;">
       <h4>Expanded Long-Form Article</h4>
-      <img src="ducklonger.png" width="96%" alt="Ducker Long Example" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
+      <img src="assets/ducklonger.png" width="96%" alt="Ducker Long Example" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
     </td>
   </tr>
 </table>
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 - **Visual Reader & Highlighter:** Upload documents in PDF, EPUB, DOCX, TXT, or MD format, view them styled, highlight critical sentences, and run targeted AI actions.
 - **Live Assistant Editor:** A distraction-free markdown/text editor integrated with a Gemini-powered correction model to clean up grammar, syntax, style, or generate rewrites.
@@ -75,7 +75,7 @@ Transform brief outlines and raw text into expanded, rich, and formatted long-fo
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 * **Frontend:** Next.js (React), Tailwind CSS, Lucide Icons, Fetch API
 * **Backend:** FastAPI, Python, SQLModel (SQLAlchemy)
@@ -84,9 +84,9 @@ Transform brief outlines and raw text into expanded, rich, and formatted long-fo
 
 ---
 
-## 🚀 Quick Start (Docker Compose - Recommended)
+## Quick Start (Docker Compose - Recommended)
 
-Run the entire suite locally with four orchestrated services (`frontend`, `backend`, `postgres`, `qdrant`).
+Run the entire suite locally with four orchestrated services (frontend, backend, postgres, qdrant).
 
 ### 1. Initialize Configuration
 ```bash
@@ -120,7 +120,7 @@ docker compose down --remove-orphans
 
 ---
 
-## 💻 Manual Local Development (Without Docker)
+## Manual Local Development (Without Docker)
 
 ### Prerequisites
 - Python 3.10+
@@ -146,7 +146,7 @@ npm run dev
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 Copy `.env.example` to `.env` and configure key variables:
 
@@ -161,7 +161,7 @@ Copy `.env.example` to `.env` and configure key variables:
 
 ---
 
-## 🛡️ Production & Security Considerations
+## Production & Security Considerations
 
 1. **API Key Setup Protection:** Keep your `SETUP_ACCESS_TOKEN` set and secure to limit runtime configurations to authorized local administrators.
 2. **Reverse Proxy / API Gateway:** Put the backend FastAPI application behind Nginx, Caddy, or Cloudflare with rate limits on token generation and LLM query endpoints.
@@ -170,7 +170,7 @@ Copy `.env.example` to `.env` and configure key variables:
 
 ---
 
-## 🧪 Testing & Validation
+## Testing & Validation
 
 Run quality checks and backend unit tests to ensure everything is correct:
 
@@ -186,4 +186,4 @@ pytest ../tests/backend -v
 
 ---
 
-*Made with ❤️ by the WriterLoop AI team.*
+*Made by the WriterLoop AI team.*
