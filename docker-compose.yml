@@ -1,0 +1,91 @@
+services:
+  frontend:
+    image: writerloop-ai-frontend:dev
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8000/api/v1}
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+
+  backend:
+    image: writerloop-ai-backend:dev
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      TASK_EXECUTION_MODE: ${TASK_EXECUTION_MODE:-background}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    ports:
+      - "8000:8000"
+
+  worker:
+    image: writerloop-ai-backend:dev
+    profiles:
+      - full
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      TASK_EXECUTION_MODE: celery
+    depends_on:
+      backend:
+        condition: service_started
+      redis:
+        condition: service_healthy
+    command: celery -A app.worker.celery_app.celery_app worker --loglevel=info
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-writerloop}
+      POSTGRES_USER: ${POSTGRES_USER:-writerloop}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-writerloop}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-writerloop} -d ${POSTGRES_DB:-writerloop}"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+
+  redis:
+    image: redis:7-alpine
+    profiles:
+      - full
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+
+  qdrant:
+    image: qdrant/qdrant:v1.13.2
+    restart: unless-stopped
+    environment:
+      QDRANT__STORAGE__ON_DISK_PAYLOAD: "true"
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+volumes:
+  postgres_data:
+  qdrant_data:

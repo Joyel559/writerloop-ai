@@ -1,0 +1,36 @@
+# Node
+frontend/node_modules
+frontend/.next
+frontend/out
+frontend/.vercel
+
+# Python
+backend/.venv
+backend/.pytest_cache
+backend/__pycache__
+backend/**/*.pyc
+**/__pycache__/
+
+# Env files
+.env
+.env.*
+!.env.example
+frontend/.env.local
+backend/.env
+frontend/tsconfig.tsbuildinfo
+.docs/
+
+# Secrets/certs
+*.pem
+*.key
+*.p12
+*.pfx
+
+# OS/editor
+.DS_Store
+.idea
+.vscode
+
+# Build artifacts
+coverage
+*.log
