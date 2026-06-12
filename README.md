@@ -1,100 +1,134 @@
-# WriterLoop AI
+# 🌀 WriterLoop AI
 
-WriterLoop AI is a reading + writing workspace with:
-- Reader (`/reader`): custom document reading (PDF/EPUB/DOCX/TXT/MD), highlights, selection-to-AI, translation, and semantic search.
-- Editor (`/editor`): Gemini-powered grammar/spelling correction, rewrites, and analysis.
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Next.js](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![Qdrant](https://img.shields.io/badge/Qdrant-neutral?style=for-the-badge&logo=qdrant&logoColor=red)](https://qdrant.tech/)
+[![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-## Architecture
+WriterLoop AI is an intelligent reading and writing workspace powered by Google Gemini, PostgreSQL, and the Qdrant Vector Database. It is designed to create a continuous feedback loop that helps authors, researchers, and professionals refine their text through interactive, AI-assisted tools.
 
-### Default mode (recommended)
-Runs **4 containers**:
-1. `frontend`
-2. `backend`
-3. `postgres`
-4. `qdrant`
+---
 
-This is the default production architecture for local/dev use.
+## 📸 Visual Showcase
 
-### Full mode (scaled queue mode)
-Runs **6 containers**:
-1. `frontend`
-2. `backend`
-3. `postgres`
-4. `qdrant`
-5. `redis`
-6. `worker`
+### 🏠 Workspace Homepage
+The central hub to setup your API keys, navigate to the apps, and check current system statuses.
 
-Use this when you want Celery workers and Redis queues.
+<p align="center">
+  <img src="home.png" width="100%" alt="WriterLoop AI Homepage" style="border-radius: 12px; box-shadow: 0 4px 30px rgba(0,0,0,0.15);" />
+</p>
 
-Qdrant is always enabled by default (core dependency for semantic search/document chat).
+---
 
-## Ports
-- Frontend: `3000`
-- Backend API: `8000`
-- PostgreSQL: `5432`
-- Qdrant: `6333`
-- Redis (full mode only): `6379`
+### 📖 Reader Workspace (`/reader`)
+Render your files (PDF, EPUB, DOCX, TXT, MD) in a clean, visual layout. Highlight text, query AI on-demand, translate sections, and perform deep semantic vector search on your document library.
 
-## Quick Start (Docker)
+<p align="center">
+  <img src="read.png" width="100%" alt="Reader App Interface" style="border-radius: 12px; box-shadow: 0 4px 30px rgba(0,0,0,0.15);" />
+</p>
 
+---
+
+### ✍️ Live AI Editor Correction (`/editor`)
+Type with real-time AI intervention. Watch as Gemini automatically highlights structural and spelling mistakes, and refines them instantly.
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" align="center" style="border: none;">
+      <h4>❌ Mistake Detected</h4>
+      <img src="writermis.png" width="96%" alt="Mistake" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
+    </td>
+    <td width="50%" align="center" style="border: none;">
+      <h4>✅ AI Corrected</h4>
+      <img src="writer.png" width="96%" alt="Corrected" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
+    </td>
+  </tr>
+</table>
+
+---
+
+### 🦆 Document Generation Examples
+Transform brief outlines and raw text into expanded, rich, and formatted long-form articles.
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" align="center" style="border: none;">
+      <h4>Original Text / Outline</h4>
+      <img src="duck.png" width="96%" alt="Duck Example" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
+    </td>
+    <td width="50%" align="center" style="border: none;">
+      <h4>Expanded Long-Form Article</h4>
+      <img src="ducklonger.png" width="96%" alt="Ducker Long Example" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
+    </td>
+  </tr>
+</table>
+
+---
+
+## ✨ Key Features
+
+- **Visual Reader & Highlighter:** Upload documents in PDF, EPUB, DOCX, TXT, or MD format, view them styled, highlight critical sentences, and run targeted AI actions.
+- **Live Assistant Editor:** A distraction-free markdown/text editor integrated with a Gemini-powered correction model to clean up grammar, syntax, style, or generate rewrites.
+- **Semantic Vector Search:** Built-in Qdrant database indexes all uploaded documents to enable instantaneous conceptual search across your entire workspace library.
+- **Unified Dashboard:** Overview of system health, database connections, active background tasks, and direct environment configuration.
+
+---
+
+## 🛠 Tech Stack
+
+* **Frontend:** Next.js (React), Tailwind CSS, Lucide Icons, Fetch API
+* **Backend:** FastAPI, Python, SQLModel (SQLAlchemy)
+* **Databases:** PostgreSQL (Relational Data), Qdrant (Vector Engine)
+* **AI Engine:** Google Gemini SDK
+
+---
+
+## 🚀 Quick Start (Docker Compose - Recommended)
+
+Run the entire suite locally with four orchestrated services (`frontend`, `backend`, `postgres`, `qdrant`).
+
+### 1. Initialize Configuration
 ```bash
 cp .env.example .env
+```
+
+### 2. Launch Stack
+Launch services in background mode:
+```bash
+docker compose up --build -d
+```
+*Or use the pre-built script:*
+```bash
 bash scripts/dev-up-detached.sh
 ```
 
-Open:
-- `http://localhost:3000`
-- `http://localhost:8000/docs`
+### 3. Access Services
+- **Frontend Dashboard:** [http://localhost:3000](http://localhost:3000)
+- **API Documentation (Swagger):** [http://localhost:8000/docs](http://localhost:8000/docs)
 
-Check status:
-
+### 4. Monitor Health
 ```bash
 docker compose ps
+docker compose logs -f backend frontend
 ```
 
-Stream logs:
-
+### 5. Stop Stack
 ```bash
-docker compose logs -f frontend backend
+docker compose down --remove-orphans
 ```
 
-Stop:
+---
 
-```bash
-bash scripts/dev-down.sh
-```
+## 💻 Manual Local Development (Without Docker)
 
-## Full Mode (Docker)
+### Prerequisites
+- Python 3.10+
+- Node.js 18+
+- Active PostgreSQL instance
+- Active Qdrant instance
 
-```bash
-cp .env.example .env
-bash scripts/dev-up-full-detached.sh
-```
-
-Stop full mode:
-
-```bash
-bash scripts/dev-down.sh
-```
-
-## Cleanup Commands
-
-Remove build cache + dangling images:
-
-```bash
-bash scripts/docker-clean.sh
-```
-
-Full project reset (containers + volumes + local images):
-
-```bash
-bash scripts/dev-reset.sh
-```
-
-## Local Run (without Docker)
-
-### Backend
-
+### Backend Setup
 ```bash
 cd backend
 python -m venv .venv
@@ -103,73 +137,53 @@ pip install -r requirements.txt
 uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
-### Frontend
-
+### Frontend Setup
 ```bash
 cd frontend
-npm ci
+npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+---
 
-## Environment Variables
+## ⚙️ Environment Variables
 
-Copy and edit:
+Copy `.env.example` to `.env` and configure key variables:
 
-```bash
-cp .env.example .env
-```
+| Variable | Description | Default / Example |
+| :--- | :--- | :--- |
+| `APP_ENV` | Mode of operation (`development`, `production`) | `development` |
+| `GEMINI_API_KEY` | Gemini AI Developer Key | `AIzaSy...` |
+| `JWT_SECRET` | Secret key for hashing tokens | *Set a secure string* |
+| `DATABASE_URL` | SQLAlchemy Connection String | `postgresql://writerloop:writerloop@postgres/writerloop` |
+| `QDRANT_URL` | Qdrant DB Endpoint | `http://qdrant:6333` |
+| `SETUP_ACCESS_TOKEN`| Token protection for setting Gemini key | *Recommended in prod* |
 
-Important variables:
-- `APP_ENV` (`development`, `staging`, `production`)
-- `GEMINI_API_KEY`
-- `JWT_SECRET`
-- `CORS_ORIGINS`
-- `DATABASE_URL`
-- `QDRANT_URL`
-- `TASK_EXECUTION_MODE` (`background`, `inline`, `celery`)
-- `SETUP_ACCESS_TOKEN` (recommended for key setup endpoint protection)
+---
 
-## Security Notes
+## 🛡️ Production & Security Considerations
 
-- Gemini key is handled by backend endpoint `POST /api/v1/settings/gemini-key` and stored in backend runtime env file.
-- In non-dev environments, set a strong `JWT_SECRET` (app will fail startup if left default).
-- Restrict `CORS_ORIGINS` to trusted domains only.
-- For public deployment, use HTTPS and set `APP_ENV=production`.
-- Set `SETUP_ACCESS_TOKEN` to protect runtime key setup endpoint (non-loopback setup requests require it).
-- Put backend behind an API gateway/reverse proxy with rate limiting and authentication for AI-heavy endpoints.
-- `.env` is ignored by git and must never be committed.
+1. **API Key Setup Protection:** Keep your `SETUP_ACCESS_TOKEN` set and secure to limit runtime configurations to authorized local administrators.
+2. **Reverse Proxy / API Gateway:** Put the backend FastAPI application behind Nginx, Caddy, or Cloudflare with rate limits on token generation and LLM query endpoints.
+3. **Database Security:** In production, use managed databases (e.g., Supabase, Neon) with SSL connection parameters instead of host-mapped Docker volumes.
+4. **Environment Sanitation:** `.env` is ignored by default. Never commit it to version control.
 
-## Production Deployment Shapes
+---
 
-### Development / single machine
-- `frontend`, `backend`, `postgres`, `qdrant`
+## 🧪 Testing & Validation
 
-### Small VPS
-- `frontend`, `backend`, `qdrant`
-- external managed PostgreSQL (Supabase/Neon/Railway)
-
-### Scaled
-- `frontend`, `backend`, `qdrant`, `redis`, `worker`
-- external managed PostgreSQL
-
-## Quality Checks
+Run quality checks and backend unit tests to ensure everything is correct:
 
 ```bash
+# Frontend Lints and Builds
 cd frontend && npm run lint && npm run build
-```
 
-```bash
+# Backend Unit and Integration Tests
 cd backend
-python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
-pytest ../tests/backend -q
+pytest ../tests/backend -v
 ```
 
-## Documentation
-- [Architecture](docs/architecture.html)
-- [Deployment](docs/deployment.md)
-- [API](docs/api.md)
-# writerloop-ai
+---
+
+*Made with ❤️ by the WriterLoop AI team.*
